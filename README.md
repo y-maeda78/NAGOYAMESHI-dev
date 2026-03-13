@@ -1,13 +1,11 @@
 # NAGOYAMESHI（なごやめし）
-
-### 名古屋のB級グルメを紹介している飲食店検索プラットフォーム
 公開中URL：
 https://nagoyameshi-app-v1-251b66a50825.herokuapp.com/
 
 ---
 
 ## 概要
-NAGOYAMESHIは、名古屋市内の飲食店を検索・予約できるポータルサイトです。
+NAGOYAMESHIは、 名古屋のB級グルメを紹介している飲食店検索・予約ができるポータルサイトです。
 店舗検索をはじめ、有料会員限定で予約、お気に入り登録、レビュー投稿が行えます。
 
 ## 主な機能
@@ -30,4 +28,5 @@ NAGOYAMESHIは、名古屋市内の飲食店を検索・予約できるポータ
 - **Frontend**: HTML5 / CSS3 / Bootstrap 5 / JavaScript
 - **Infrastructure**: Heroku / Cloudinary (Image Hosting)
 - **Payment**: Stripe API (Subscription Model)
+
 
