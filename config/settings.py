@@ -43,8 +43,8 @@ SECRET_KEY = env.str('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG')
 
-# ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com'] # HEROKUデプロイ時のみ追加
 
 
 # Application definition
@@ -153,18 +153,18 @@ MEDIA_ROOT = BASE_DIR / 'media_local' # 追記
 
 # 画像の設定
 CLOUDINARY_STORAGE  = {
-    'CLOUD_NAME':'hemwtd6fe',
-    'API_KEY':'483294333586792',
-    'API_SECRET':'vY66_uIsMx2bt8p_BMKetPWtMAk'
+    'CLOUD_NAME': env.str('CLOUD_NAME'),
+    'API_KEY': env.str('API_KEY'),
+    'API_SECRET': env.str('API_SECRET')
 }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイ時のみ追加
-# DEFAULT_AUTO_FIELD = env.str('DEFAULT_AUTO_FIELD', default=None)
-# DEFAULT_FILE_STORAGE = env.str('DEFAULT_FILE_STORAGE', default=None)
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField' # HEROKUデプロイ時のみ追加
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイ時のみ追加
+DEFAULT_AUTO_FIELD = env.str('DEFAULT_AUTO_FIELD', default=None)
+DEFAULT_FILE_STORAGE = env.str('DEFAULT_FILE_STORAGE', default=None)
 
 # massages  # 追記
 MESSAGE_TAGS = { # 指定したtagによってクラスを追加して装飾を分ける

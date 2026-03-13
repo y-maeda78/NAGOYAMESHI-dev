@@ -150,11 +150,11 @@
                             <select class="form-control form-select" name="category_id" required>
                                 <option value="" hidden>選択してください</option>
                                 {% for category in categories %}
-                                {% if category.id == category_id %}
-                                <option value="{{ category.id }}" selected>{{ category.name }}</option>
-                                {% else %}
-                                <option value="{{ category.id }}">{{ category.name }}</option>
-                                {% endif %}
+                                    {% if category.id == category_id %}
+                                    <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                                    {% else %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>

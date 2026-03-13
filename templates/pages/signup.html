@@ -11,9 +11,27 @@
             <h2 class="mb-4">新規登録</h2>
             
             <hr class="my-4">
-
-            <form method="post">
+            
+            {% if form.errors %}
+            <p class="small text-danger">入力に誤りがあります。入力内容を確認してください。</p>
+            <div class="alert alert-danger">
+                <ul class="mb-0 small">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label }}</strong>:</li>
+                            <li> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            <form method="post" class="h-adr">
                 {% csrf_token %}
+                <span class="p-country-name" style="display:none;">Japan</span>
                 <div class="form-group row mb-3">
                     <label for="username" class="col-md-5 col-form-label text-md-left fw-bold">
                         <div class="d-flex align-items-center">
@@ -22,7 +40,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input type="text" class="form-control" id="username" name="username" value="" required
+                        <input type="text" class="form-control" id="username" name="username" value="{{ form.username.value|default_if_none:'' }}" required
                             autocomplete="username" autofocus placeholder="侍 太郎">
                     </div>
                 </div>
@@ -35,7 +53,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input type="tel" class="form-control" id="tel" name="tel" value="" required
+                        <input type="tel" class="form-control" id="tel" name="tel" value="{{ form.tel.value|default_if_none:'' }}" required
                             autocomplete="tel-national" minlength="10" maxlength="11" placeholder="09012345678">
                         <span style="font-size: small;">※ハイフンなしで入力</span>
                     </div>
@@ -51,10 +69,13 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input type="text" class="form-control" id="zipcode" name="zipcode" value="" required
+                        <input type="text" class="form-control p-postal-code {% if form.zipcode.errors %}is-invalid{% endif %}" id="zipcode" name="zipcode" value="{{ form.zipcode.value|default_if_none:'' }}" required
                             pattern="[0-9]{7}" title="郵便番号は7桁の半角数字で入力してください。" maxlength="7" autocomplete="postal-code"
                             placeholder="1010022">
                         <span style="font-size: small;">※ハイフンなしで入力</span>
+                        {% for error in form.zipcode.errors %}
+                            <p class="text-danger small">{{ error }}</p>
+                        {% endfor %}
                     </div>
                 </div>
 
@@ -66,7 +87,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input class="form-control" type="text" id="prefecture" name="prefecture" placeholder="愛知県" value="">
+                        <input class="form-control p-region" type="text" id="prefecture" name="prefecture" placeholder="愛知県" value="{{ form.prefecture.value|default_if_none:'' }}">
                     </div>
                 </div>
 
@@ -78,7 +99,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input class="form-control" type="text" id="city" name="city" placeholder="名古屋市中区" value="">
+                        <input class="form-control p-locality" type="text" id="city" name="city" placeholder="名古屋市中区" value="{{ form.city.value|default_if_none:'' }}">
                     </div>
                 </div>
 
@@ -90,7 +111,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input type="text" class="form-control" id="address1" name="address1" value="" required
+                        <input type="text" class="form-control" id="address1" name="address1" value="{{ form.address1.value|default_if_none:'' }}" required
                             placeholder="1丁目300番地">
                     </div>
                 </div>
@@ -103,7 +124,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input type="text" class="form-control" id="address2" name="address2" value=""
+                        <input type="text" class="form-control" id="address2" name="address2" value="{{ form.address2.value|default_if_none:'' }}"
                             placeholder="○○マンション 101号室">
                     </div>
                 </div>
@@ -118,7 +139,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input type="email" class="form-control" id="email" name="email" value="" required
+                        <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" id="email" name="email" value="{{ form.email.value|default_if_none:'' }}" required
                             autocomplete="email" placeholder="samurai@example.com">
                     </div>
                 </div>
@@ -131,7 +152,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input id="password1" type="password" class="form-control" name="password1" required
+                        <input id="password1" type="password" class="form-control {% if form.password1.errors or form.password2.errors %}is-invalid{% endif %}" name="password1" required
                             autocomplete="new-password">
                         {% for error in form.password1.errors %}
                             <p class="text-danger small">{{ error }}</p>
@@ -147,7 +168,7 @@
                     </label>
 
                     <div class="col-md-7">
-                        <input id="password2" type="password" class="form-control" name="password2"
+                        <input id="password2" type="password" class="form-control {% if form.password2.errors %}is-invalid{% endif %}" name="password2"
                             required autocomplete="new-password">
                         {% for error in form.password2.errors %}
                             <p class="text-danger small">{{ error }}</p>
@@ -166,4 +187,5 @@
     </div>
 </div>
 
+<script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 {% endblock %}
